@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\2ème année - CIN2B\\Chenaux\\Projets\\P_GestMDP\\P_GestMDP\\P_GestMDP.csproj": {}
+    "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj": {}
   },
   "projects": {
-    "D:\\2ème année - CIN2B\\Chenaux\\Projets\\P_GestMDP\\P_GestMDP\\P_GestMDP.csproj": {
+    "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\2ème année - CIN2B\\Chenaux\\Projets\\P_GestMDP\\P_GestMDP\\P_GestMDP.csproj",
+        "projectUniqueName": "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj",
         "projectName": "P_GestMDP",
-        "projectPath": "D:\\2ème année - CIN2B\\Chenaux\\Projets\\P_GestMDP\\P_GestMDP\\P_GestMDP.csproj",
+        "projectPath": "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj",
         "packagesPath": "C:\\Users\\ps70dji\\.nuget\\packages\\",
-        "outputPath": "D:\\2ème année - CIN2B\\Chenaux\\Projets\\P_GestMDP\\P_GestMDP\\obj\\",
+        "outputPath": "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
