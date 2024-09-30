@@ -38,7 +38,7 @@ namespace P_GestMDP
                             // Vérifier si le répertoire existe
                             if (Directory.Exists(directoryPath))
                             {
-                                // Obtenir tous les fichiers texte dans le répertoire
+                                // Obtenir tous les fichiers dans le répertoire
                                 string[] files = Directory.GetFiles(directoryPath, "*");
 
                                 if (files.Length == 0)
