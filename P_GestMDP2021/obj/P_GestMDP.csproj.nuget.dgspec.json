@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj": {}
+    "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj": {
+    "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj",
+        "projectUniqueName": "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP.csproj",
         "projectName": "P_GestMDP",
-        "projectPath": "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\P_GestMDP.csproj",
+        "projectPath": "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP.csproj",
         "packagesPath": "C:\\Users\\amizeqiri\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP\\obj\\",
+        "outputPath": "C:\\Users\\amizeqiri\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\amizeqiri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "netcoreapp2.2"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "netcoreapp2.2": {
+            "targetAlias": "netcoreapp2.2",
             "projectReferences": {}
           }
         },
@@ -37,8 +37,16 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "netcoreapp2.2": {
+          "targetAlias": "netcoreapp2.2",
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -49,11 +57,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }

@@ -1,0 +1,13 @@
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\bin\Debug\netcoreapp2.2\P_GestMDP.deps.json
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\bin\Debug\netcoreapp2.2\P_GestMDP.runtimeconfig.json
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\bin\Debug\netcoreapp2.2\P_GestMDP.runtimeconfig.dev.json
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\bin\Debug\netcoreapp2.2\P_GestMDP.dll
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\bin\Debug\netcoreapp2.2\P_GestMDP.pdb
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.csproj.AssemblyReference.cache
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.AssemblyInfoInputs.cache
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.AssemblyInfo.cs
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.csproj.CoreCompileInputs.cache
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.dll
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.pdb
+C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\obj\Debug\netcoreapp2.2\P_GestMDP.genruntimeconfig.cache
