@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj": {}
+    "C:\\Users\\tvami\\OneDrive\\Bureau\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj": {
+    "C:\\Users\\tvami\\OneDrive\\Bureau\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj",
+        "projectUniqueName": "C:\\Users\\tvami\\OneDrive\\Bureau\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj",
         "projectName": "P_GestMDP2021",
-        "projectPath": "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj",
-        "packagesPath": "C:\\Users\\ps70dji\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ps70dji\\Desktop\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\obj\\",
+        "projectPath": "C:\\Users\\tvami\\OneDrive\\Bureau\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\P_GestMDP2021.csproj",
+        "packagesPath": "C:\\Users\\tvami\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tvami\\OneDrive\\Bureau\\GitHub\\P_GestMDP_114\\P_GestMDP2021\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ps70dji\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\tvami\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,10 +26,12 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.2": {
+            "targetAlias": "netcoreapp2.2",
             "projectReferences": {}
           }
         },
@@ -40,6 +43,7 @@
       },
       "frameworks": {
         "netcoreapp2.2": {
+          "targetAlias": "netcoreapp2.2",
           "dependencies": {
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
@@ -49,10 +53,17 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
