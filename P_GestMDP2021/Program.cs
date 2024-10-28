@@ -1,252 +1,385 @@
-﻿using System;
+﻿///ETML 
+///Auteur : Amir Zeqiri
+///Date : 30.10.2024 
+///Description : Gestionnaire de mot de passe avec un algorithme de chiffrage en Vigenère
+
+
+using System;
 using System.IO;
 
 namespace P_GestMDP
 {
     class Program
     {
+        // Chemin du fichier où le master password chiffré est stocké
+        static string masterPasswordFilePath = @"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP2021\MasterPassword\masterpassword";
+        // Clé de chiffrement utilisée par l'algorithme de Vigenère pour chiffrer et déchiffrer le master password et les mots de passe
+        static string vigenereKey = "maCleDeChiffrement";
+
         static void Main(string[] args)
         {
-            // Efface l'écran
             Console.Clear();
 
-            // Variable pour stocker la réponse de l'utilisateur s'il veut recommencer
+            // Si la fonction de vérification du Master Passsword n'est pas 'true' alors ça retourne rien
+            if (!CheckMasterPassword())
+            {
+                return;
+            }
+
             char Reponse;
 
-            // Boucle principale du programme qui permet de recommencer après chaque action
             do
             {
-                // Efface l'écran
                 Console.Clear();
 
-                // Menu
+                // Menu principal d'options
                 Console.Write("*******************************" +
                     "\nSélectionnez une action" +
                     "\n1. Consulter les mots de passe" +
                     "\n2. Ajouter un mot de passe" +
                     "\n3. Supprimer un mot de passe" +
-                    "\n4. Quitter le programme" +
+                    "\n4. Modifier un mot de passe" +
+                    "\n5. Quitter le programme" +
                     "\n*******************************" +
                     "\n\nFaites votre choix : ");
 
-                // Lecture du choix de l'utilisateur
                 string Choix = Console.ReadLine();
 
-                // Utilisation d'un switch pour exécuter une action en fonction du choix
+                // Switch pour gérer chaque option
                 switch (Choix)
                 {
-                    case "1":  // Cas où l'utilisateur veut consulter/modifier un mot de passe
-                        Console.Clear();
-
-                        // Chemin du répertoire où sont stockés les fichiers de mots de passe
-                        string directoryPath = @"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password";
-
-                        try
-                        {
-                            // Vérifie si le répertoire existe
-                            if (Directory.Exists(directoryPath))
-                            {
-                                // Récupère tous les fichiers dans ce répertoire
-                                string[] files = Directory.GetFiles(directoryPath, "*");
-
-                                if (files.Length == 0)
-                                {
-                                    // Si aucun fichier n'est trouvé, affiche un message
-                                    Console.WriteLine("Aucun mot de passe trouvé.");
-                                }
-                                else
-                                {
-                                    // Affiche les fichiers disponibles
-                                    Console.WriteLine("Vos mots de passe :\n");
-                                    for (int i = 0; i < files.Length; i++)
-                                    {
-                                        Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
-                                    }
-
-                                    // Demande à l'utilisateur quel fichier il souhaite consulter/modifier
-                                    Console.Write("\nQuel mot de passe voulez-vous consulter et éventuellement modifier ? (entrez le numéro) : ");
-                                    string choix = Console.ReadLine();
-
-                                    // Vérifie que le choix est valide
-                                    if (int.TryParse(choix, out int index) && index > 0 && index <= files.Length)
-                                    {
-                                        // Lit le contenu du fichier choisi
-                                        string filePath = files[index - 1];
-                                        string fileContent = File.ReadAllText(filePath);
-                                        Console.WriteLine("\nContenu actuel :\n" + fileContent);
-
-                                        // Demande les nouvelles informations à l'utilisateur (laisser vide pour conserver l'ancienne)
-                                        Console.Write("Veuillez entrer la nouvelle URL (laisser vide pour conserver l'ancienne) : ");
-                                        string newUrl = Console.ReadLine();
-                                        Console.Write("Veuillez entrer le nouvel identifiant (laisser vide pour conserver l'ancien) : ");
-                                        string newIdentifiant = Console.ReadLine();
-                                        Console.Write("Veuillez entrer le nouveau mot de passe (laisser vide pour conserver l'ancien) : ");
-                                        string newMotDePasse = Console.ReadLine();
-
-                                        // Modifie le contenu du fichier en fonction des nouvelles entrées
-                                        string[] lines = fileContent.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-                                        if (!string.IsNullOrWhiteSpace(newUrl))
-                                        {
-                                            lines[0] = "URL : " + newUrl;
-
-                                            // Crée un nouveau fichier avec la nouvelle URL comme nom
-                                            string newFileName = newUrl;
-                                            string newFilePath = Path.Combine(directoryPath, newFileName);
-
-                                            // Supprime l'ancien fichier et enregistre les modifications dans le nouveau fichier
-                                            File.Delete(filePath);
-                                            File.WriteAllLines(newFilePath, lines);
-                                            Console.WriteLine("Les modifications ont été enregistrées avec succès sous le nouveau nom.");
-                                        }
-                                        else
-                                        {
-                                            // Si l'URL n'a pas changé, on vérifie les autres champs (identifiant et mot de passe)
-                                            if (!string.IsNullOrWhiteSpace(newIdentifiant))
-                                            {
-                                                lines[1] = "Identifiant : " + newIdentifiant;
-                                            }
-                                            if (!string.IsNullOrWhiteSpace(newMotDePasse))
-                                            {
-                                                lines[2] = "Mot de passe : " + newMotDePasse;
-                                            }
-
-                                            // Enregistre les modifications dans le fichier existant
-                                            File.WriteAllLines(filePath, lines);
-                                            Console.WriteLine("Les modifications ont été enregistrées avec succès.");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Choix invalide.");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // Si le répertoire n'existe pas
-                                Console.WriteLine("Le répertoire des mots de passe n'existe pas.");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Gère les erreurs lors de l'accès au répertoire
-                            Console.WriteLine("Une erreur s'est produite lors de la lecture des fichiers : " + ex.Message);
-                        }
-
-                        Console.ReadLine();
+                    case "1":
+                        ConsulterMotDePasse(); // Appelle la fonction de consultation
                         break;
 
-                    case "2":  // Cas où l'utilisateur veut ajouter un mot de passe
-                        Console.Clear();
-
-                        // Demande les informations de l'utilisateur pour le mot de passe à ajouter
-                        Console.Write("Veuillez entrez l'URL du site : ");
-                        string url = Console.ReadLine();
-
-                        Console.Write("Veuillez entrer l'identifiant : ");
-                        string identifiant = Console.ReadLine();
-
-                        Console.Write("Veuillez entrer le mot de passe : ");
-                        string motDePasse = Console.ReadLine();
-
-                        // Crée un chemin de fichier basé sur l'URL
-                        string pathFile = $@"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password\{url}";
-
-                        try
-                        {
-                            // Ajoute ou crée un nouveau fichier texte contenant les informations
-                            using (StreamWriter sw = File.AppendText(pathFile))
-                            {
-                                sw.WriteLine("URL : " + url);
-                                sw.WriteLine("Identifiant : " + identifiant);
-                                sw.WriteLine("Mot de passe : " + motDePasse);
-                            }
-
-                            // Confirmation de l'enregistrement
-                            Console.WriteLine($"\nLe mot de passe a été enregistré dans le fichier '{url}'.");
-                        }
-                        catch (Exception ex)
-                        {
-                            // Gère les erreurs lors de l'enregistrement
-                            Console.WriteLine("Une erreur s'est produite lors de l'enregistrement : " + ex.Message);
-                        }
-
-                        Console.ReadLine();
+                    case "2":
+                        AjouterMotDePasse(); // Appelle la fonction d'ajout
                         break;
 
-                    case "3":  // Cas où l'utilisateur veut supprimer un mot de passe
-                        Console.Clear();
-                        string deleteDirectoryPath = @"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password";
-
-                        try
-                        {
-                            // Vérifie si le répertoire existe
-                            if (Directory.Exists(deleteDirectoryPath))
-                            {
-                                // Récupère tous les fichiers du répertoire
-                                string[] files = Directory.GetFiles(deleteDirectoryPath, "*");
-
-                                if (files.Length == 0)
-                                {
-                                    // Si aucun fichier n'est trouvé
-                                    Console.WriteLine("Aucun mot de passe trouvé à supprimer.");
-                                }
-                                else
-                                {
-                                    // Affiche les fichiers disponibles
-                                    Console.WriteLine("Vos mots de passe :\n");
-                                    for (int i = 0; i < files.Length; i++)
-                                    {
-                                        Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
-                                    }
-
-                                    // Demande à l'utilisateur quel fichier il veut supprimer
-                                    Console.Write("\nQuel mot de passe voulez-vous supprimer ? (entrez le numéro) : ");
-                                    string choix = Console.ReadLine();
-
-                                    // Vérifie que le choix est valide
-                                    if (int.TryParse(choix, out int index) && index > 0 && index <= files.Length)
-                                    {
-                                        // Supprime le fichier sélectionné
-                                        File.Delete(files[index - 1]);
-                                        Console.WriteLine("Le mot de passe a été supprimé avec succès.");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Choix invalide.");
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                // Si le répertoire n'existe pas
-                                Console.WriteLine("Le répertoire des mots de passe n'existe pas.");
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Gère les erreurs lors de la suppression du fichier
-                            Console.WriteLine("Une erreur s'est produite lors de la suppression du fichier : " + ex.Message);
-                        }
-
-                        Console.ReadLine();
+                    case "3":
+                        SupprimerMotDePasse(); // Appelle la fonction de supression
                         break;
 
-                    case "4":  // Cas où l'utilisateur veut quitter le programme
-                        Environment.Exit(0);
+                    case "4":
+                        ModifierMotDePasse(); // Appelle la fonction de modification
                         break;
 
-                    default:  // Cas où l'utilisateur entre une option invalide
+                    case "5":
+                        Environment.Exit(0); // Ferme le programme
+                        break;
+
+                    default:
                         Console.WriteLine("Choix invalide");
                         break;
                 }
 
-                // Demande à l'utilisateur s'il veut relancer le programme
                 Console.Write("\nVoulez-vous relancer le programme (o / n): ");
                 Reponse = Convert.ToChar(Console.ReadLine());
             }
-            // Boucle tant que l'utilisateur entre 'o' ou '0' pour continuer
             while (Reponse == 'o' || Reponse == '0');
+        }
+
+        // Vérifie le master password ou le crée si il n'existe pas
+        /// <summary>
+        /// Vérifie l'existence du master password et le valide si déjà enregistré. 
+        /// Si aucun master password n'est trouvé, permet à l'utilisateur d'en créer un et l'enregistre.
+        /// </summary>
+        /// <returns>Retourne true si le master password est validé ou créé avec succès, false en cas d'échec de validation.</returns>
+        static bool CheckMasterPassword()
+        {
+            if (File.Exists(masterPasswordFilePath))
+            {
+                Console.Write("Veuillez entrer le master password : ");
+                string inputMasterPassword = Console.ReadLine();
+
+                string encryptedMasterPassword = File.ReadAllText(masterPasswordFilePath);
+                string decryptedMasterPassword = VigenereDecrypt(encryptedMasterPassword, vigenereKey);
+
+                if (inputMasterPassword == decryptedMasterPassword)
+                {
+                    Console.WriteLine("Accès accordé.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("Mot de passe incorrect.");
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Aucun master password trouvé.");
+                Console.Write("Veuillez créer un master password : ");
+                string newMasterPassword = Console.ReadLine();
+
+                string encryptedMasterPassword = VigenereEncrypt(newMasterPassword, vigenereKey);
+                File.WriteAllText(masterPasswordFilePath, encryptedMasterPassword);
+
+                Console.WriteLine("Master password enregistré.");
+                return true;
+            }
+        }
+
+        // Fonction pour consulter un mot de passe
+        /// <summary>
+        /// Affiche la liste des mots de passe chiffrés avec Vigenère disponibles dans le répertoire spécifié.
+        /// Permet de sélectionner et de consulter un mot de passe en le déchiffrant.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de la lecture des fichiers du répertoire.</exception>
+        static void ConsulterMotDePasse()
+        {
+            Console.Clear();
+            string directoryPath = @"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP2021\password";
+
+            try
+            {
+                if (Directory.Exists(directoryPath))
+                {
+                    string[] files = Directory.GetFiles(directoryPath, "*");
+                    if (files.Length == 0)
+                    {
+                        Console.WriteLine("Aucun mot de passe trouvé.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Vos mots de passe chiffrés :\n");
+                        for (int i = 0; i < files.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
+                        }
+
+                        Console.Write("\nQuel mot de passe voulez-vous consulter ? (entrez le numéro) : ");
+                        string choix = Console.ReadLine();
+
+                        if (int.TryParse(choix, out int index) && index > 0 && index <= files.Length)
+                        {
+                            string filePath = files[index - 1];
+                            string fileContent = File.ReadAllText(filePath);
+
+                            string decryptedContent = VigenereDecrypt(fileContent, vigenereKey);
+                            Console.WriteLine("\n\n" + decryptedContent);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choix invalide.");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Le répertoire des mots de passe n'existe pas.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Une erreur s'est produite lors de la lecture des fichiers : " + ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        // Fonction pour ajouter un mot de passe
+        /// <summary>
+        /// Ajoute un nouveau mot de passe en demandant à l'utilisateur l'URL, l'identifiant, et le mot de passe associé.
+        /// Chiffre les informations et les enregistre dans un fichier portant le nom de l'URL dans le répertoire spécifié.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de l'enregistrement du fichier.</exception>
+        static void AjouterMotDePasse()
+        {
+            Console.Clear();
+            Console.Write("Veuillez entrer l'URL du site : ");
+            string url = Console.ReadLine();
+
+            Console.Write("Veuillez entrer l'identifiant : ");
+            string identifiant = Console.ReadLine();
+
+            Console.Write("Veuillez entrer le mot de passe : ");
+            string motDePasse = Console.ReadLine();
+
+            string encryptedData = VigenereEncrypt($"URL : {url}\nIdentifiant : {identifiant}\nMot de passe : {motDePasse}", vigenereKey);
+
+            string pathFile = $@"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP2021\password\{url}";
+
+            try
+            {
+                File.WriteAllText(pathFile, encryptedData);
+                Console.WriteLine($"\nLe mot de passe a été chiffré et enregistré dans le fichier '{url}'.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Une erreur s'est produite lors de l'enregistrement : " + ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        // Fonction pour supprimer un mot de passe
+        /// <summary>
+        /// Affiche la liste des mots de passe disponibles et permet de sélectionner un fichier de mot de passe à supprimer.
+        /// Supprime le fichier correspondant du répertoire spécifié.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de la suppression du fichier.</exception>
+        static void SupprimerMotDePasse()
+        {
+            Console.Clear();
+            string deleteDirectoryPath = @"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP2021\password";
+
+            try
+            {
+                if (Directory.Exists(deleteDirectoryPath))
+                {
+                    string[] files = Directory.GetFiles(deleteDirectoryPath, "*");
+
+                    if (files.Length == 0)
+                    {
+                        Console.WriteLine("Aucun mot de passe trouvé à supprimer.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Vos mots de passe :\n");
+                        for (int i = 0; i < files.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
+                        }
+
+                        Console.Write("\nQuel mot de passe voulez-vous supprimer ? (entrez le numéro) : ");
+                        string choix = Console.ReadLine();
+
+                        if (int.TryParse(choix, out int index) && index > 0 && index <= files.Length)
+                        {
+                            File.Delete(files[index - 1]);
+                            Console.WriteLine("Le mot de passe a été supprimé avec succès.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choix invalide.");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Le répertoire des mots de passe n'existe pas.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Une erreur s'est produite lors de la suppression du fichier : " + ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        // Fonction pour modifier un mot de passe existant
+        /// <summary>
+        /// Permet à l'utilisateur de modifier un mot de passe existant en affichant la liste des mots de passe disponibles.
+        /// Affiche le mot de passe actuel et demande de nouvelles informations (URL, identifiant, mot de passe) à l'utilisateur.
+        /// Chiffre les nouvelles informations et les enregistre dans le même fichier.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de la modification ou de l'enregistrement du mot de passe.</exception>
+        static void ModifierMotDePasse()
+        {
+            Console.Clear();
+            string directoryPath = @"C:\Users\ps70dji\Desktop\GitHub\P_GestMDP_114\P_GestMDP2021\password";
+
+            try
+            {
+                if (Directory.Exists(directoryPath))
+                {
+                    string[] files = Directory.GetFiles(directoryPath, "*");
+                    if (files.Length == 0)
+                    {
+                        Console.WriteLine("Aucun mot de passe trouvé.");
+                        return;
+                    }
+
+                    Console.WriteLine("Vos mots de passe :\n");
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        Console.WriteLine($"{i + 1}. {Path.GetFileName(files[i])}");
+                    }
+
+                    Console.Write("\nQuel mot de passe voulez-vous modifier ? (entrez le numéro) : ");
+                    string choix = Console.ReadLine();
+
+                    if (int.TryParse(choix, out int index) && index > 0 && index <= files.Length)
+                    {
+                        string filePath = files[index - 1];
+                        string fileContent = File.ReadAllText(filePath);
+
+                        string decryptedContent = VigenereDecrypt(fileContent, vigenereKey);
+                        Console.WriteLine("\nMot de passe actuel :\n" + decryptedContent);
+
+                        // Demander les nouvelles informations
+                        Console.Write("Veuillez entrer la nouvelle URL du site (laisser vide pour ne pas changer) : ");
+                        string newUrl = Console.ReadLine();
+                        Console.Write("Veuillez entrer le nouvel identifiant (laisser vide pour ne pas changer) : ");
+                        string newIdentifiant = Console.ReadLine();
+                        Console.Write("Veuillez entrer le nouveau mot de passe (laisser vide pour ne pas changer) : ");
+                        string newMotDePasse = Console.ReadLine();
+
+                        // Mettre à jour les informations
+                        string updatedUrl = string.IsNullOrEmpty(newUrl) ? decryptedContent.Split('\n')[0] : $"URL : {newUrl}";
+                        string updatedIdentifiant = string.IsNullOrEmpty(newIdentifiant) ? decryptedContent.Split('\n')[1] : $"Identifiant : {newIdentifiant}";
+                        string updatedMotDePasse = string.IsNullOrEmpty(newMotDePasse) ? decryptedContent.Split('\n')[2] : $"Mot de passe : {newMotDePasse}";
+
+                        // Chiffre et enregistre les nouvelles informations
+                        string encryptedData = VigenereEncrypt($"{updatedUrl}\n{updatedIdentifiant}\n{updatedMotDePasse}", vigenereKey);
+                        File.WriteAllText(filePath, encryptedData);
+
+                        Console.WriteLine("Le mot de passe a été mis à jour avec succès.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Choix invalide.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Le répertoire des mots de passe n'existe pas.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Une erreur s'est produite lors de la modification du mot de passe : " + ex.Message);
+            }
+
+            Console.ReadLine();
+        }
+
+        // Méthode de chiffrement Vigenère
+        /// <summary>
+        /// Chiffre une chaîne de caractères en utilisant la méthode de chiffrement de Vigenère.
+        /// Chaque caractère de la chaîne d'entrée est décalé en fonction de la clé fournie.
+        /// </summary>
+        /// <param name="text">Le texte à chiffrer que l'utilisateur inscrit.</param>
+        /// <param name="key">La clé utilisée pour le chiffrement.</param>
+        /// <returns>Le texte chiffré.</returns>
+        static string VigenereEncrypt(string text, string key)
+        {
+            char[] output = new char[text.Length];
+            for (int i = 0; i < text.Length; i++)
+            {
+                output[i] = (char)(((text[i] + key[i % key.Length]) % 128));
+            }
+            return new string(output);
+        }
+
+        // Méthode de déchiffrement Vigenère du texte avec la clé donnée
+        /// <summary>
+        /// Déchiffre une chaîne de caractères en utilisant la méthode de déchiffrement de Vigenère.
+        /// Chaque caractère du texte chiffré est décalé en fonction de la clé pour retrouver le texte original.
+        /// </summary>
+        /// <param name="text">Le texte chiffré à déchiffrer.</param>
+        /// <param name="key">La clé utilisée pour le déchiffrement.</param>
+        /// <returns>Le texte déchiffré.</returns>
+        static string VigenereDecrypt(string text, string key)
+        {
+            char[] output = new char[text.Length];
+            for (int i = 0; i < text.Length; i++)
+            {
+                output[i] = (char)(((text[i] - key[i % key.Length] + 128) % 128));
+            }
+            return new string(output);
         }
     }
 }
