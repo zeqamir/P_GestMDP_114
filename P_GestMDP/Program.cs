@@ -14,7 +14,7 @@ namespace P_GestMDP
         // Chemin du fichier où le master password chiffré est stocké
         static string masterPasswordFilePath = @"C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\MasterPassword\masterpassword";
         // Clé de chiffrement utilisée par l'algorithme de Vigenère pour chiffrer et déchiffrer le master password et les mots de passe
-        static string vigenereKey = "maCleDeChiffrement";
+        static string vigenereKey = "MACLEDECHIFFREMENT";
 
         static void Main(string[] args)
         {
