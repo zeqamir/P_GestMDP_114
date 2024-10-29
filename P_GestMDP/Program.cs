@@ -1,4 +1,10 @@
-﻿using System;
+﻿///ETML 
+///Auteur : Amir Zeqiri
+///Date : 30.10.2024 
+///Description : Gestionnaire de mot de passe avec un algorithme de chiffrage en Vigenère
+
+
+using System;
 using System.IO;
 
 namespace P_GestMDP
@@ -6,7 +12,7 @@ namespace P_GestMDP
     class Program
     {
         // Chemin du fichier où le master password chiffré est stocké
-        static string masterPasswordFilePath = @"C:\Users\tvami\OneDrive\Bureau\GitHub\P_GestMDP_114\P_GestMDP\MasterPassword\masterpassword";
+        static string masterPasswordFilePath = @"C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\MasterPassword\masterpassword";
         // Clé de chiffrement utilisée par l'algorithme de Vigenère pour chiffrer et déchiffrer le master password et les mots de passe
         static string vigenereKey = "maCleDeChiffrement";
 
@@ -14,7 +20,7 @@ namespace P_GestMDP
         {
             Console.Clear();
 
-            // Vérifie si le master password est correct
+            // Si la fonction de vérification du Master Passsword n'est pas 'true' alors ça retourne rien
             if (!CheckMasterPassword())
             {
                 return;
@@ -32,7 +38,7 @@ namespace P_GestMDP
                     "\n1. Consulter les mots de passe" +
                     "\n2. Ajouter un mot de passe" +
                     "\n3. Supprimer un mot de passe" +
-                    "\n4. Modifier un mot de passe" + // Nouvelle option
+                    "\n4. Modifier un mot de passe" +
                     "\n5. Quitter le programme" +
                     "\n*******************************" +
                     "\n\nFaites votre choix : ");
@@ -43,15 +49,15 @@ namespace P_GestMDP
                 switch (Choix)
                 {
                     case "1":
-                        ConsulterMotDePasse();
+                        ConsulterMotDePasse(); // Appelle la fonction de consultation
                         break;
 
                     case "2":
-                        AjouterMotDePasse();
+                        AjouterMotDePasse(); // Appelle la fonction d'ajout
                         break;
 
                     case "3":
-                        SupprimerMotDePasse();
+                        SupprimerMotDePasse(); // Appelle la fonction de supression
                         break;
 
                     case "4":
@@ -73,7 +79,12 @@ namespace P_GestMDP
             while (Reponse == 'o' || Reponse == '0');
         }
 
-        // Vérifie le master password ou le crée s'il n'existe pas
+        // Vérifie le master password ou le crée si il n'existe pas
+        /// <summary>
+        /// Vérifie l'existence du master password et le valide si déjà enregistré. 
+        /// Si aucun master password n'est trouvé, permet à l'utilisateur d'en créer un et l'enregistre.
+        /// </summary>
+        /// <returns>Retourne true si le master password est validé ou créé avec succès, false en cas d'échec de validation.</returns>
         static bool CheckMasterPassword()
         {
             if (File.Exists(masterPasswordFilePath))
@@ -110,10 +121,15 @@ namespace P_GestMDP
         }
 
         // Fonction pour consulter un mot de passe
+        /// <summary>
+        /// Affiche la liste des mots de passe chiffrés avec Vigenère disponibles dans le répertoire spécifié.
+        /// Permet de sélectionner et de consulter un mot de passe en le déchiffrant.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de la lecture des fichiers du répertoire.</exception>
         static void ConsulterMotDePasse()
         {
             Console.Clear();
-            string directoryPath = @"C:\Users\tvami\OneDrive\Bureau\GitHub\P_GestMDP_114\P_GestMDP\password";
+            string directoryPath = @"C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password";
 
             try
             {
@@ -163,6 +179,11 @@ namespace P_GestMDP
         }
 
         // Fonction pour ajouter un mot de passe
+        /// <summary>
+        /// Ajoute un nouveau mot de passe en demandant à l'utilisateur l'URL, l'identifiant, et le mot de passe associé.
+        /// Chiffre les informations et les enregistre dans un fichier portant le nom de l'URL dans le répertoire spécifié.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de l'enregistrement du fichier.</exception>
         static void AjouterMotDePasse()
         {
             Console.Clear();
@@ -176,7 +197,8 @@ namespace P_GestMDP
             string motDePasse = Console.ReadLine();
 
             string encryptedData = VigenereEncrypt($"URL : {url}\nIdentifiant : {identifiant}\nMot de passe : {motDePasse}", vigenereKey);
-            string pathFile = $@"C:\Users\tvami\OneDrive\Bureau\GitHub\P_GestMDP_114\P_GestMDP\password\{url}";
+
+            string pathFile = $@"C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password\{url}";
 
             try
             {
@@ -192,10 +214,15 @@ namespace P_GestMDP
         }
 
         // Fonction pour supprimer un mot de passe
+        /// <summary>
+        /// Affiche la liste des mots de passe disponibles et permet de sélectionner un fichier de mot de passe à supprimer.
+        /// Supprime le fichier correspondant du répertoire spécifié.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de la suppression du fichier.</exception>
         static void SupprimerMotDePasse()
         {
             Console.Clear();
-            string deleteDirectoryPath = @"C:\Users\tvami\OneDrive\Bureau\GitHub\P_GestMDP_114\P_GestMDP\password";
+            string deleteDirectoryPath = @"C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password";
 
             try
             {
@@ -242,11 +269,17 @@ namespace P_GestMDP
             Console.ReadLine();
         }
 
-        // Méthode pour modifier un mot de passe existant
+        // Fonction pour modifier un mot de passe existant
+        /// <summary>
+        /// Permet à l'utilisateur de modifier un mot de passe existant en affichant la liste des mots de passe disponibles.
+        /// Affiche le mot de passe actuel et demande de nouvelles informations (URL, identifiant, mot de passe) à l'utilisateur.
+        /// Chiffre les nouvelles informations et les enregistre dans le même fichier.
+        /// </summary>
+        /// <exception cref="Exception">Lancée si une erreur survient lors de la modification ou de l'enregistrement du mot de passe.</exception>
         static void ModifierMotDePasse()
         {
             Console.Clear();
-            string directoryPath = @"C:\Users\tvami\OneDrive\Bureau\GitHub\P_GestMDP_114\P_GestMDP\password";
+            string directoryPath = @"C:\Users\amizeqiri\Desktop\GitHub\P_GestMDP_114\P_GestMDP\password";
 
             try
             {
@@ -314,6 +347,13 @@ namespace P_GestMDP
         }
 
         // Méthode de chiffrement Vigenère
+        /// <summary>
+        /// Chiffre une chaîne de caractères en utilisant la méthode de chiffrement de Vigenère.
+        /// Chaque caractère de la chaîne d'entrée est décalé en fonction de la clé fournie.
+        /// </summary>
+        /// <param name="text">Le texte à chiffrer que l'utilisateur inscrit.</param>
+        /// <param name="key">La clé utilisée pour le chiffrement.</param>
+        /// <returns>Le texte chiffré.</returns>
         static string VigenereEncrypt(string text, string key)
         {
             char[] output = new char[text.Length];
@@ -324,7 +364,14 @@ namespace P_GestMDP
             return new string(output);
         }
 
-        // Déchiffrement Vigenère du texte avec la clé donnée
+        // Méthode de déchiffrement Vigenère du texte avec la clé donnée
+        /// <summary>
+        /// Déchiffre une chaîne de caractères en utilisant la méthode de déchiffrement de Vigenère.
+        /// Chaque caractère du texte chiffré est décalé en fonction de la clé pour retrouver le texte original.
+        /// </summary>
+        /// <param name="text">Le texte chiffré à déchiffrer.</param>
+        /// <param name="key">La clé utilisée pour le déchiffrement.</param>
+        /// <returns>Le texte déchiffré.</returns>
         static string VigenereDecrypt(string text, string key)
         {
             char[] output = new char[text.Length];
