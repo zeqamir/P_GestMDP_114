@@ -346,7 +346,7 @@ namespace P_GestMDP
             Console.ReadLine();
         }
 
-        // Méthode de chiffrement Vigenère
+        // Méthode de chiffrement Vigenère du texte avec la clé donnée
         /// <summary>
         /// Chiffre une chaîne de caractères en utilisant la méthode de chiffrement de Vigenère.
         /// Chaque caractère de la chaîne d'entrée est décalé en fonction de la clé fournie.
